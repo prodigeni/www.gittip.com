@@ -32,10 +32,13 @@ clean:
 rst:
 	AUTOLIB_LIBRARY_ROOT=../gittip ./autolib.py
 
-html:
+html: rst
 	$(SPHINXBUILD) -b html $(ALLSPHINXOPTS) $(BUILDDIR)/html
 	@echo
 	@echo "Build finished. The HTML pages are in $(BUILDDIR)/html."
+
+serve: html
+	../env/bin/aspen -w _build/html
 
 linkcheck:
 	$(SPHINXBUILD) -b linkcheck $(ALLSPHINXOPTS) $(BUILDDIR)/linkcheck
