@@ -6,33 +6,28 @@ bin_dir := $(shell $(python) -c 'import sys; bin = "Scripts" if sys.platform == 
 env_bin := env/$(bin_dir)
 venv := "./vendor/virtualenv-1.9.1.py"
 
-env: $(env_bin)/swaddle
+env:
 	$(python)  $(venv)\
 				--unzip-setuptools \
 				--prompt="[gittip] " \
 				--never-download \
-				--extra-search-dir=./vendor/ \
 				--distribute \
 				./env/
-	./$(env_bin)/pip install -r requirements.txt
-	./$(env_bin)/pip install -r requirements_tests.txt
-	./$(env_bin)/pip install -e ./
-
-$(env_bin)/swaddle:
-	$(python) $(venv)\
-				--unzip-setuptools \
-				--prompt="[gittip] " \
-				--never-download \
-				--extra-search-dir=./vendor/ \
-				--distribute \
-				./env/
-	./$(env_bin)/pip install -r requirements.txt
-	./$(env_bin)/pip install -r requirements_tests.txt
+	if [ ! -d tarballs ]; then \
+	    rm -rf tarballs; \
+	    mkdir tarballs; \
+	    ./$(env_bin)/pip install --download=tarballs -r requirements.txt; \
+	    ./$(env_bin)/pip install --download=tarballs -r requirements_test.txt; \
+	fi
+	./$(env_bin)/pip install --no-index --no-deps tarballs/*
 	./$(env_bin)/pip install -e ./
 
 clean:
 	rm -rf env *.egg *.egg-info
 	find . -name \*.pyc -delete
+
+distclean: clean
+	rm -rf tarballs
 
 local.env:
 	echo "Creating a local.env file ..."
