@@ -17,7 +17,7 @@ env:
 	    rm -rf tarballs; \
 	    mkdir tarballs; \
 	    ./$(env_bin)/pip install --download=tarballs -r requirements.txt; \
-	    ./$(env_bin)/pip install --download=tarballs -r requirements_test.txt; \
+	    ./$(env_bin)/pip install --download=tarballs -r requirements_tests.txt; \
 	fi
 	./$(env_bin)/pip install --no-index --no-deps tarballs/*
 	./$(env_bin)/pip install -e ./
