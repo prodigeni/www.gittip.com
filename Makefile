@@ -72,8 +72,9 @@ test: env tests/env test-schema
 tests: test
 
 jstest:
-	./node_modules/.bin/karma start karma-unit.conf.js
-	./$(env_bin)/python jstests/scripts/e2e_runner.py
+	./node_modules/.bin/grunt test
+	#./node_modules/.bin/karma start karma-unit.conf.js
+	#./$(env_bin)/python jstests/scripts/e2e_runner.py
 
 tests/env:
 	echo "Creating a tests/env file ..."
