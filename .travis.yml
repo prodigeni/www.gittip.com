@@ -5,7 +5,7 @@ before_script:
  - echo "DATABASE_URL=postgres://postgres@localhost/gittip-test" >> tests/env
  - psql -U postgres -c 'CREATE DATABASE "gittip-test";'
  - make test-schema
-script: make test
+script: make tests
 notifications:
   email: false
   irc: 
